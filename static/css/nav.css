@@ -1,0 +1,36 @@
+/* NavBar Stying */
+
+nav.navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 20px 30px;
+  z-index: 999;
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
+  background-color: transparent !important;
+  color: rgba(63, 97, 99, 0.804) !important;
+  z-index: 1;
+  font-family: "Piedra", cursive;
+}
+
+nav.navbar.sticky {
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid#ededed;
+  background-color: lightskyblue !important;
+  color: rgba(0, 0, 0, 0.45) !important;
+  padding: 15px 20px;
+  z-index: 999;
+}
+
+/* nav.navbar a {
+    color: #f8f8f8 !important;
+} */
+
+nav.navbar.sticky a {
+  color: rgba(0, 0, 0) !important;
+}
+
+nav.navbar li {
+  list-style: none;
+}

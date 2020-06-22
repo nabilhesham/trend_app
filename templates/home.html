@@ -1,0 +1,93 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+<!-- custom css -->
+{% block static %}<link rel="stylesheet" href="{% static 'css/home.css' %}" />{% endblock %}
+
+
+{% block title %}Trend{% endblock title %} 
+{% block content %}
+
+<div class="search_container">
+  <div class="welcome_container">
+    <p>Welcome To Our Trend Search Engine !!</p>
+  </div>
+  <div class="container form_container">
+    <!-- the search form -->
+    <form method="GET" role="form">
+      {% csrf_token %}
+
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter Keywords" aria-label="Keywords" name="keyword"
+          value="{{keyword}}" />
+
+        <div class="input-group-append">
+          <button class="btn btn-outline-dark" type="submit">
+            Submit
+          </button>
+        </div>
+        <div class="radio_container">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="trend_type" value="get_historical_interest" checked />
+          <label class="form-check-label" for="exampleRadios1">
+            Get Historical interest
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="trend_type" value="interest_by_region" />
+          <label class="form-check-label" for="exampleRadios2">
+            Interest By Region
+          </label>
+        </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- Tips Section With Grid System -->
+<div class="container">
+  <div class="bg_color_1">
+    <div
+      class="container"
+      style="padding-top: 80px;padding-bottom: 55px;"
+    >
+      <div class="main_title_2">
+        <h3>Tips !</h3>
+        <span><em></em></span>
+        <p>Here is some Tips about How to Use the Search Engine.</p>
+      </div>
+      <div class="main_title_2" style="display:flex;justify-content:center;align-items:center;flex-direction: column;">
+        <h2>First !</h2>
+        <span><em></em></span>
+        <p style="width:50%;">Trend Search engine is about searching the Global Trends By region Or Throws Time and Display the Results in Bar Graph or Map.</p>
+      </div>
+      <div class="row tips_row">
+        <div class="col-lg-4" style="border-right: 1px solid gray;">
+            <h4>Get Historical interest</h4>
+            <p>
+              Takes Only <span style="font-size: 20pt; font-weight:800">One  </span> Keyword and search for the global interests throw 15 Days ....
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <h4>Interest By Region</h4>
+            <p>
+              Takes Only <span style="font-size: 20pt; font-weight:800">Two  </span>Keywords  Seperatet By ","  and search for the global interests throw the US Region ....
+
+            </p>
+        </div>
+
+  </div>
+</div>
+
+
+<!-- PreLoader -->
+{% comment %} <div id="preloader">
+  <div data-loader="circle-side"></div>
+</div> {% endcomment %}
+
+{% endblock content %}
+
+<!-- custom JS -->
+{% block js %}<script src="{% static 'js/home.js' %}"></script>{% endblock %}

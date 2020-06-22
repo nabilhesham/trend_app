@@ -1,0 +1,128 @@
+{% extends 'base.html' %} 
+
+
+{% load static %}
+
+<!-- custom css -->
+{% block static %}<link rel="stylesheet" href="{% static 'css/search_results.css' %}" />{% endblock %}
+
+
+{% block title %}Results{% endblock title %} 
+{% block content %}
+
+
+<div id="search_again">
+  <a href="{% url 'home' %}">Search Again</a>
+</div>
+
+
+<div class="result_container">
+
+
+  <div class="results_for">
+    <p></p>
+    <span></span>
+  </div>
+  
+  <!-- Data-->
+  <!-- By Region-->
+  {% if trendData2 %}
+    <!-- Charts -->
+    <div class="charts_container">
+    <h1>Charts</h1>
+      <div class="charts">
+        <div id="chartdiv_map1"></div>
+        <div id="chartdiv_map2"></div>
+      </div>
+    </div>
+    <h1 style="text-align: center;margin-top:7%">Results Table</h1>
+    <div class="table_wrap">
+      <table class="table" search_type="interest_by_region">
+        <!-- The First Keyword-->
+      {% if trendData1 %} 
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Trend Name</th>
+            <th scope="col">region</th>
+            <th scope="col">interest</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          {% for trend in trendData1 %}
+            <th scope="row" id="trend1">{{trend.name}}</th>
+            <td>{{trend.region}}</td>
+            <td>{{trend.interest}}</td>
+          </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+      {% endif %}
+
+      <!-- The Second Keyword-->
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Trend Name</th>
+            <th scope="col">region</th>
+            <th scope="col">interest</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for trend in trendData2 %}
+          <tr>
+            <th scope="row" id="trend2">{{trend.name}}</th>
+            <td>{{trend.region}}</td>
+            <td>{{trend.interest}}</td>
+          </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+    </div>
+  <!-- By Historical Interest-->
+  {% elif trendData1 %}
+    <!-- Charts -->
+    <div class="charts_container">
+    <h1>Charts</h1>
+      <div class="charts">
+        <div id="chartdiv_bar"></div>
+      </div>
+    </div>
+    <h1 style="text-align: center;">Results Table</h1>
+    <table class="table" search_type="get_historical_interest" style="margin:auto;width:70%">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Trend Name</th>
+          <th scope="col">date</th>
+          <th scope="col">interest</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for trend in trendData1 %}
+        <tr>
+          <th scope="row" id="trend1">{{trend.name}}</th>
+          <td>{{trend.date}}</td>
+          <td>{{trend.interest}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+
+  </>
+
+
+{% endblock content %}
+
+
+
+
+
+
+<script>
+  var context_var= {{trendData1}};
+  myfunc(context_var)
+</script>
+
+<!-- custom JS -->
+{% block js %}<script type="text/javascript"  src="{% static 'js/search_results.js' %}"></script>{% endblock %}

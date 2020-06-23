@@ -19,6 +19,7 @@ $(document).ready(function () {
       get_data(trend2, search_type, true);
       res2 = JSON.parse(localStorage.getItem("res2"));
       // filter the data to get req, values for charts
+      // console.log(res2);
       filter_data(res2, true, false);
       filter_data(res1, true, true);
       // display the search type and keywords
@@ -29,8 +30,9 @@ $(document).ready(function () {
       $(".results_for p").text(`Results for : ${trend1}`);
       $(".results_for span").text(`Search : ${search_type}`);
     }
-  } catch {
+  } catch (err) {
     console.log("error");
+    console.log(err);
   }
 });
 
@@ -55,17 +57,18 @@ function get_data(trend, search_type, trend2_exist = false) {
 }
 
 // filter the data to get req, values for charts
+let data1 = [];
+let data2 = [];
 
 function filter_data(res, trend2_exist = false, trend1_exist = false) {
-  let data1 = [];
-  let data2 = [];
   for (i in res) {
     let section = {};
 
     // change the name of the var. to put in the charts
     if (trend2_exist) {
-      country = res[i]["region"];
-      section["id"] = country;
+      // console.log(res[i]);
+      geo = res[i]["geo"];
+      section["id"] = geo;
     } else {
       date = res[i]["date"];
       section["date"] = date;
@@ -82,7 +85,6 @@ function filter_data(res, trend2_exist = false, trend1_exist = false) {
       data1.push(section);
     }
   }
-
   if (trend2_exist) {
     localStorage.setItem("res1_filtered", JSON.stringify(data1));
     localStorage.setItem("res2_filtered", JSON.stringify(data2));
@@ -166,9 +168,9 @@ am4core.ready(function () {
 
   // Configure series tooltip
   var polygonTemplate = polygonSeries.mapPolygons.template;
-  polygonTemplate.tooltipText = "{id}: {value}";
-  polygonSeries.dataFields.category = "id";
-  polygonSeries.dataFields.value = "value";
+  polygonTemplate.tooltipText = "{name}: {value}";
+  // polygonSeries.dataFields.category = "id";
+  // polygonSeries.dataFields.value = "value";
   polygonTemplate.nonScalingStroke = true;
   polygonTemplate.strokeWidth = 0.5;
 

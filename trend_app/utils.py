@@ -19,8 +19,13 @@ def get_data(keyword, trend_type):
 
     # get the data from the api if intereset_by_region or get_historical_interest
     if trend_type == 'interest_by_region':
-        data = pytrend.interest_by_region()
+        data = pytrend.interest_by_region(inc_geo_code=True)
+        # get the geo data for regions
+        geo = data.to_dict()['geoCode']
+        # get the interest for the search keyword
         data = data.to_dict()[keyword]
+        data = [geo, data]
+        print(data)
     elif trend_type == 'get_historical_interest':
         data = pytrend.interest_over_time()
         data = data.to_dict()[keyword]
@@ -42,13 +47,15 @@ def save_to_database(keyword, data, search_type):
             name=keyword, search_type=search_type)
         print(trend_name)
         counter = 0
-        for k, v in data.items():
+        for k, v in data[1].items():
+            geo = ""
             # get only 51 results fot the states
             if counter > new_counter:
                 counter = 0
                 break
+            geo = data[0][k]
             Trend.objects.create(name=trend_name, region=str(
-                k).split(" ")[0], interest=v)
+                k).split(" ")[0], interest=v, geo=geo)
             counter += 1
             print(counter)
         return True

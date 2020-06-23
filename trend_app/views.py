@@ -40,6 +40,7 @@ def home(request):
                         # get the result from api
                         data = get_data(i, choice)
                         # save to database
+                        # print(data)
                         save_to_database(i, data, choice)
 
                 return redirect(reverse("search_results", kwargs={"trend_name1": keywords[0], "trend_name2": keywords[1], "search_type": choice}))

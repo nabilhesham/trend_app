@@ -169,8 +169,7 @@ am4core.ready(function () {
   // Configure series tooltip
   var polygonTemplate = polygonSeries.mapPolygons.template;
   polygonTemplate.tooltipText = "{name}: {value}";
-  // polygonSeries.dataFields.category = "id";
-  // polygonSeries.dataFields.value = "value";
+
   polygonTemplate.nonScalingStroke = true;
   polygonTemplate.strokeWidth = 0.5;
 

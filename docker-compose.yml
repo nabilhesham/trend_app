@@ -1,4 +1,4 @@
-version: '3.3'
+version: "3.3"
 
 services:
   web:
@@ -13,6 +13,10 @@ services:
 
   db:
     image: postgres:10
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=trend
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
